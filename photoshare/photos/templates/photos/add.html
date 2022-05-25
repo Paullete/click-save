@@ -1,54 +1,66 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Add Photo</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-    </head>
-    <body class="m-5">
-        
-        <div class= "container ">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <a href="{% url 'gallery' %}" class="btn btn-dark my-3">Back</a>
-                    <div class="card">
-                        
-                            <form method="POST" action="">
-                                <div class="form-group m-3">
-                                    <label>Image Description</label>
-                                    <input name="description" type="text" placeholder="Enter Description" class="form-control">
-                                  </div>
-                                  <div class="form-group m-3">
-                                    <label>Select A Category</label>
-                                    <select name="category"  class="form-control"> 
-                                        <option value="none">Select A Category...</option>
-                                        {% for category in categories %}
-                                        <option value="{{category.id}}">{{category.name}}</option>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Add Photo</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-                                        {% endfor %}
-                                    </select>
-                                  </div>
-                                  <div class="form-group m-3">
-                                    <label>Create New Category</label>
-                                    <input name="category_new" type="text" placeholder="Create new category" class="form-control">
-                                  </div>
-                                <div class="form-group m-3">
-                                  <label>Upload Image</label>
-                                  <input name="image" type="file" class="form-control-file">
-                                </div>
-                              </form>
-                        <button type="submit" class="btn btn-primary m-3">Submit</button>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-                    </div>
+</head>
+
+<body class="m-5">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <a href="{% url 'gallery' %}" class="btn btn-dark my-3">Go Back</a>
+                <div class="card">
+
+
+                    <form method='POST' action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group m-3">
+                            <label>Description</label>
+                            <input required name="description" type="text" placeholder="Enter a description"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group m-3">
+                            <label>Select a category</label>
+                            <select name="category" class="form-control">
+                                <option value='none'>Select a category...</option>
+
+                                {% for category in categories %}
+                                <option value='{{category.id}}'>{{category.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+                        <div class="form-group m-3">
+                            <label>Create a new category</label>
+                            <input name="category_new" type="text" placeholder="Create a new category"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group m-3">
+                            <label>Upload image</label>
+                            <input required name="images" type="file" multiple class="form-control-file">
+                        </div>
+
+                        <button type='submit' class="btn btn-primary m-3">Submit</button>
+
+                    </form>
                 </div>
-
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
